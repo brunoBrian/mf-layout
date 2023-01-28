@@ -8,7 +8,7 @@ import "./index.scss";
 
 const App = () => (
   <>
-    <Navbar fixed />
+    <Navbar />
     <Footer />
     <Card />
   </>
