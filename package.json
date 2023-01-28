@@ -6,7 +6,10 @@
     "build:dev": "webpack --mode development",
     "build:start": "cd dist && PORT=3001 npx serve",
     "start": "webpack serve --open --mode development",
-    "start:live": "webpack serve --open --mode development --live-reload --hot"
+    "start:live": "webpack serve --open --mode development --live-reload --hot",
+    "lint": "eslint src --ext ts,tsc --max-warnings=0 && npm run typecheck",
+    "lint:fix": "eslint --fix src --ext ts && npm run typecheck",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "license": "MIT",
   "author": {
@@ -24,18 +27,37 @@
     "autoprefixer": "^10.1.0",
     "babel-loader": "^8.2.2",
     "css-loader": "^6.3.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.1",
+    "eslint-plugin-typescript": "^0.14.0",
     "html-webpack-plugin": "^5.3.2",
+    "husky": "^8.0.3",
     "postcss": "^8.2.1",
     "postcss-loader": "^4.1.0",
+    "prettier": "^2.8.3",
     "style-loader": "^3.3.0",
+    "tailwindcss": "^2.0.2",
     "typescript": "^4.5.2",
     "webpack": "^5.57.1",
     "webpack-cli": "^4.9.0",
-    "webpack-dev-server": "^4.3.1",
-    "tailwindcss": "^2.0.2"
+    "webpack-dev-server": "^4.3.1"
   },
   "dependencies": {
+    "eslint-config-mfe": "^0.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "yarn lint"
+    ]
   }
 }
